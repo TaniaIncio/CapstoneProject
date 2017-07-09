@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'tania'
             keyPassword 'taniaandroid54321'
-            storeFile file('D:/Projects/mobiles/android/claves/key_android.jks')
+            storeFile file("$rootDir/key_android.jks")
             storePassword 'taniaandroid54321'
         }
     }

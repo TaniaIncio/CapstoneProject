@@ -54,7 +54,6 @@ import com.tincio.capstoneproject.R;
 import com.tincio.capstoneproject.data.database.PichangaDB;
 import com.tincio.capstoneproject.data.model.SoccerField;
 import com.tincio.capstoneproject.data.provider.SoccerFieldContract;
-import com.tincio.capstoneproject.presentation.presenter.MapsPresenter;
 import com.tincio.capstoneproject.presentation.view.MapsView;
 
 import butterknife.BindView;
