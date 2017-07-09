@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:fullBackupContent="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.activity.MainActivity">
+        <activity android:name=".presentation.activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,6 +26,7 @@
 
         <activity
             android:name=".presentation.activity.OnboardingActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_onboarding" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -40,6 +42,7 @@
 
         <activity
             android:name=".presentation.activity.MapsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_maps" />
 
         <!--WIDGET-->
