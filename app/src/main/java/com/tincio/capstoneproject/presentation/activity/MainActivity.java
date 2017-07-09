@@ -57,12 +57,9 @@ public class MainActivity extends BaseActivity implements MainView {
     public void responseSoccerField(String response) {
         if(response.isEmpty()){
             Intent intent = new Intent(getApplicationContext(), OnboardingActivity.class);
-        //    ActivityOptions options = ActivityOptions
-           //         .makeSceneTransitionAnimation(this);
-            // start the new activity
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                startActivity(intent);//, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                finish();
             }else{
                 startActivity(intent);
             }

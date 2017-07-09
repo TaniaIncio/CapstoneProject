@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -88,6 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     //private Button btnExpBottomSheet;
     @BindView(R.id.bottomSheet) LinearLayout bottomSheet;
+
     BottomSheetBehavior bsb;
     InterstitialAd mInterstitialAd;
 
@@ -471,6 +473,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             addAndCheckRequest();
 
         }
+    }
+
+    @OnClick(R.id.ic_go_gps)
+    public void goGps(){
+        if (Double.isNaN(latitudUser) || latitudUser == 0.0)return;
+        LatLng userPosition = new LatLng(latitudUser, longitudUser);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
     }
 
 

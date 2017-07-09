@@ -36,5 +36,15 @@
 
     <!-- Bottom Sheet -->
     <include layout="@layout/bottom_sheet_main" />
+     <android.support.design.widget.FloatingActionButton
+       android:id="@+id/ic_go_gps"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginRight="@dimen/activity_horizontal_margin"
+       android:src="@drawable/ic_gps_fixed_black_24px"
+       app:layout_anchor="@id/map"
+         android:layout_margin="@dimen/activity_horizontal_margin"
+       app:layout_collapseMode="parallax"
+       app:layout_anchorGravity="bottom|right|end"/>
 
 </android.support.design.widget.CoordinatorLayout>

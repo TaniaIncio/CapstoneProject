@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.view.Window;
 
 import com.tincio.capstoneproject.R;
@@ -18,8 +20,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        animationActivity();
+       // animationActivity();
         setContentView(getLayoutId());
+        setupWindowAnimations();
         bindViews();
     }
 
@@ -32,6 +35,15 @@ public abstract class BaseActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
         }
     }*/
+    private void setupWindowAnimations() {
+        Fade fade = new Fade();
+        fade.setDuration(1000);
+        getWindow().setEnterTransition(fade);
+
+        Slide slide = new Slide();
+        slide.setDuration(1000);
+        getWindow().setReturnTransition(slide);
+    }
     void animationActivity(){
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 

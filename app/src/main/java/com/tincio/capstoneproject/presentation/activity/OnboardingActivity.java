@@ -14,12 +14,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.tincio.capstoneproject.R;
@@ -31,11 +34,12 @@ public class OnboardingActivity extends BaseActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     @BindView(R.id.container) ViewPager mViewPager;
-    @BindView(R.id.btn_enter) TextView lblLogin;
     @BindView(R.id.tab_layout) TabLayout tabLayout;
+    @BindView(R.id.btn_enter) Button btnEnter;
 
     @Override
     protected int getLayoutId() {
+        setupWindowAnimations();
         return R.layout.activity_onboarding;
     }
 
@@ -87,10 +91,21 @@ public class OnboardingActivity extends BaseActivity {
     public void goLogin(){
         Intent intent =new Intent(getApplicationContext(), MapsActivity.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            View sharedView = btnEnter;
+            String transitionName = getString(R.string.square_blue_name);
+            ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(OnboardingActivity.this, sharedView, transitionName);
+            startActivity(intent, transitionActivityOptions.toBundle());
+
+           // startActivity(intent);//, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }else{
             startActivity(intent);
         }
+    }
+
+    private void setupWindowAnimations() {
+        Fade fade = new Fade();
+        fade.setDuration(1000);
+        getWindow().setEnterTransition(fade);
     }
 
     /**
