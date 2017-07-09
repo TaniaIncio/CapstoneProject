@@ -27,12 +27,14 @@ public final class  ViewAnimation {
         animation.setDuration(duration);
         animation.setInterpolator(new BounceInterpolator());
         animation.start();
+
     }
 
     public static void animationAlpha(final View view, Property propertyAnimation, float start, float end, int duration){
         ObjectAnimator animation = ObjectAnimator.ofFloat(view, propertyAnimation.toString(), start, end);
         animation.setDuration(duration);
         animation.start();
+        //view.animate().alpha(start).setDuration(4000);
     }
 
 

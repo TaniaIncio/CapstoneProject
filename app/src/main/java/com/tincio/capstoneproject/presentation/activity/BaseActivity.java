@@ -44,12 +44,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         slide.setDuration(1000);
         getWindow().setReturnTransition(slide);
     }
-    void animationActivity(){
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setExitTransition(new Explode());
-        }
-    }
     protected abstract int getLayoutId();
 }
