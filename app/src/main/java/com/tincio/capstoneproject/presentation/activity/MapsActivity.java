@@ -76,7 +76,6 @@ public class MapsActivity extends FragmentActivity implements  LoaderManager.Loa
     private double longitudUser;
     private int ZOOM_MAP = 16;
     private Marker markerUser;
-    MapsPresenter presenter;
     Location mLastLocation;
 
     //private Button btnExpBottomSheet;
@@ -107,8 +106,6 @@ public class MapsActivity extends FragmentActivity implements  LoaderManager.Loa
         mapFragment.getMapAsync(this);
         getGoogleAPIClient();
         PichangaDB db = new PichangaDB(getApplicationContext());
-        presenter = new MapsPresenter(db,this);
-
         bsb = BottomSheetBehavior.from(bottomSheet);
         bsb.setState(BottomSheetBehavior.STATE_HIDDEN);
         initSearchPlaces();
@@ -166,7 +163,6 @@ public class MapsActivity extends FragmentActivity implements  LoaderManager.Loa
         mMap = googleMap;
         mMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM_MAP));
         updateMarkerPosition();
-        presenter.getSoccerField();
         this.initBottomSheet();
     }
 
@@ -260,6 +256,7 @@ public class MapsActivity extends FragmentActivity implements  LoaderManager.Loa
         super.onResume();
         if (mGoogleApiClient.isConnected()) {
             startLocationUpdates();
+            getLoaderManager().restartLoader(0, null, this);
         }
     }
 
@@ -385,25 +382,6 @@ public class MapsActivity extends FragmentActivity implements  LoaderManager.Loa
     @Override
     public void getSoccerFields(Cursor cursor) {
         getLoaderManager().restartLoader(0, null, this);
-        /* mMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM_MAP));
-        SoccerField mField;
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            mField = new SoccerField();
-          //  String positions = cursor.getString(1);
-            mField.setLatitude(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_LATITUDE)));
-            mField.setLongitude(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_LONGITUDE)));
-            mField.setId(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry._ID)));
-            mField.setImage(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_IMAGE)));
-            mField.setName(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_NAME)));
-            mField.setDescription(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_DESCRIPTION)));
-            mField.setPrice(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_PRICE)));
-            mField.setService(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_SERVICE)));
-            addNewMarker(mField);
-            cursor.moveToNext();
-        }
-// make sure to close the cursor
-        cursor.close();*/
     }
 
     private void setData(SoccerField field){

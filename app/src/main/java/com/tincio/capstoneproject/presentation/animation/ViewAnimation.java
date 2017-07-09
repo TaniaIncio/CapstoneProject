@@ -12,36 +12,20 @@ import android.view.animation.BounceInterpolator;
 
 public final class  ViewAnimation {
 
-    public enum Property{
-        translationY,
-        translationX,
-        alpha,
-        rotation
-    }
-    public static void animationTranslation(final View view, Property propertyAnimation, long duration, float displacement){
-        ObjectAnimator animation = ObjectAnimator.ofFloat(view, propertyAnimation.toString(), displacement);
+
+    public static void animationTranslation(final View view, String propertyAnimation, long duration, float displacement){
+        ObjectAnimator animation = ObjectAnimator.ofFloat(view, propertyAnimation, displacement);
         animation.setDuration(duration);
         animation.setInterpolator(new BounceInterpolator());
         animation.start();
 
     }
 
-    public static void animationAlpha(final View view, Property propertyAnimation, float start, float end, int duration){
-        ObjectAnimator animation = ObjectAnimator.ofFloat(view, propertyAnimation.toString(), start, end);
+    public static void animationAlpha(final View view, String propertyAnimation, float start, float end, int duration){
+        ObjectAnimator animation = ObjectAnimator.ofFloat(view, propertyAnimation, start, end);
         animation.setDuration(duration);
         animation.start();
         //view.animate().alpha(start).setDuration(4000);
-    }
-
-
-    public static void rotationView(View view){
-        Keyframe kf0 = Keyframe.ofFloat(0f, 0f);
-        Keyframe kf1 = Keyframe.ofFloat(.5f, 360f);
-        Keyframe kf2 = Keyframe.ofFloat(1f, 0f);
-        PropertyValuesHolder pvhRotation = PropertyValuesHolder.ofKeyframe(Property.rotation.toString(), kf0, kf1, kf2);
-        ObjectAnimator rotationAnim = ObjectAnimator.ofPropertyValuesHolder(view, pvhRotation);
-        rotationAnim.setDuration(5000);
-        rotationAnim.start();
     }
 
 }

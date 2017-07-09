@@ -33,8 +33,8 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     private void animation(){
-        ViewAnimation.animationAlpha(this.txtName, ViewAnimation.Property.alpha, 0f, 1f, TIME_ANIMATION);
-        ViewAnimation.animationTranslation(this.imgMain, ViewAnimation.Property.translationY, 1000, FeatureDevice.with(this).getHeightScreen()/2);
+        ViewAnimation.animationAlpha(this.txtName, "alpha", 0f, 1f, TIME_ANIMATION);
+        ViewAnimation.animationTranslation(this.imgMain, "translationY", 1000, FeatureDevice.with(this).getHeightScreen()/2);
         new showAnimation().execute();
 
     }
