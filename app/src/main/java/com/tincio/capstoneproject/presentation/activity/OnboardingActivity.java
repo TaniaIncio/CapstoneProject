@@ -1,6 +1,8 @@
 package com.tincio.capstoneproject.presentation.activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -83,7 +85,12 @@ public class OnboardingActivity extends BaseActivity {
     /**Metodos**/
     @OnClick(R.id.btn_enter)
     public void goLogin(){
-        startActivity(new Intent(getApplicationContext(), MapsActivity.class));
+        Intent intent =new Intent(getApplicationContext(), MapsActivity.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        }else{
+            startActivity(intent);
+        }
     }
 
     /**

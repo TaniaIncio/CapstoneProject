@@ -7,6 +7,9 @@ ext {
     butterknifeVersion = '8.4.0'
     retrofitVersion = '2.3.0'
     picassoVersion = '2.5.2'
+    playservicesVersion = '11.0.1'
+    firebaseVersion = '10.0.1'
+    findbugsVersion = '2.0.1'
 
     /**Names package**/
     supportPackage = 'com.android.support'
@@ -14,6 +17,10 @@ ext {
     constraintlayoutPackage = 'com.android.support.constraint'
     retrofitPackage = 'com.squareup.retrofit2'
     picassoPackage = 'com.squareup.picasso'
+    cardviewPackage = 'com.android.support'
+    playservicePackage = 'com.google.android.gms'
+    firebasePackage = 'com.google.firebase'
+    findbugsPackage = 'com.google.code.findbugs'
 
     /**Dependencies**/
     supportDependencies = [
@@ -23,12 +30,23 @@ ext {
     widget = [
             constraint_layout : buildDependency(constraintlayoutPackage, 'constraint-layout', constraintlayoutVersion)
     ]
+    playServices = [
+            maps           : buildDependency(playservicePackage, 'play-services-maps', playservicesVersion),
+            location           : buildDependency(playservicePackage, 'play-services-location', playservicesVersion),
+            places           : buildDependency(playservicePackage, 'play-services-places', playservicesVersion),
+            ads           : buildDependency(playservicePackage, 'play-services-ads', playservicesVersion)
+    ]
+    firebase = [
+            notifications : buildDependency(firebasePackage, 'firebase-messaging', firebaseVersion)
+    ]
 
     butterknife = buildDependency(jakeWhartonPackage, 'butterknife', butterknifeVersion)
     butterknifeProcessor = buildDependency(jakeWhartonPackage, 'butterknife-compiler', butterknifeVersion)
     retrofit = buildDependency(retrofitPackage, 'retrofit', retrofitVersion)
     retrofit_gson = buildDependency(retrofitPackage, 'converter-gson', retrofitVersion)
     picasso = buildDependency(picassoPackage, 'picasso', picassoVersion)
+    cardview = buildDependency(cardviewPackage, 'cardview-v7', supportVersion)
+    findbugs = buildDependency(findbugsPackage, 'jsr305', findbugsVersion)
 }
 
 static String buildDependency(String pack, String dependency, String version) {

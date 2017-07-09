@@ -22,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -86,16 +89,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //private Button btnExpBottomSheet;
     @BindView(R.id.bottomSheet) LinearLayout bottomSheet;
     BottomSheetBehavior bsb;
+    InterstitialAd mInterstitialAd;
 
     @BindView(R.id.lbl_title) TextView lblName;
     @BindView(R.id.lbl_description) TextView lblDescription;
     @BindView(R.id.lbl_price) TextView lblPrice;
-    @BindView(R.id.lbl_service) TextView lblService;
     @BindView(R.id.img_field) ImageView imgField;
     @BindView(R.id.appbarLayout) AppBarLayout toolbar;
 
     /**SEARCH*/
     boolean SEARCH = false;
+    Marker markerSelected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,9 +116,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bsb = BottomSheetBehavior.from(bottomSheet);
         bsb.setState(BottomSheetBehavior.STATE_HIDDEN);
         initSearchPlaces();
-
+        initAdmob();
+    }
+    /**START ADMOB***/
+    void initAdmob(){
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.banner_ad_unit_id));
+        requestNewInterstitial();
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                actionClickMarker(markerSelected);
+            }
+        });
     }
 
+    /**Anuncios intersticiales**/
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(getString(R.string.test_device))//AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
+    }
+    public void showAnuncio(Marker marker) {
+
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            actionClickMarker(marker);
+        }
+    }
+    /****END ADMOB***/
     @OnClick(R.id.lbl_title)
     public void onClickBottomSheet(){
         bsb.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -140,13 +173,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         this.initBottomSheet();
     }
 
+    void actionClickMarker(Marker marker){
+        bsb.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        setData((SoccerField) marker.getTag());
+    }
     private void initBottomSheet(){
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 if(marker.getTag()==null)return false;
-                bsb.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                setData((SoccerField) marker.getTag());
+                markerSelected = marker;
+                showAnuncio(marker);
+
                 return false;
             }
         });
@@ -391,7 +429,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void setData(SoccerField field){
         this.lblDescription.setText(field.getDescription());
         this.lblName.setText(field.getName());
-        this.lblService.setText(field.getService());
         this.lblPrice.setText(field.getPrice());
         Picasso.with(getApplicationContext()).load(field.getImage()).into(this.imgField);
     }

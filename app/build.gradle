@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.tincio.capstoneproject"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -31,14 +31,15 @@ dependencies {
     compile retrofit
     compile retrofit_gson
     compile picasso
-    compile "com.android.support:cardview-v7:$rootProject.supportVersion"
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.google.android.gms:play-services-maps:11.0.1'
-    compile 'com.google.android.gms:play-services-location:11.0.1'
-    compile 'com.google.android.gms:play-services-places:11.0.1'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.google.firebase:firebase-messaging:10.0.1'
+    compile cardview
+    compile supportDependencies.design
+    compile playServices.maps
+    compile playServices.location
+    compile playServices.ads
+    compile playServices.places
+    compile findbugs
+    compile firebase.notifications
+
     testCompile 'junit:junit:4.12'
 }
 

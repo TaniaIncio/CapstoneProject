@@ -33,26 +33,6 @@
             android:name=".presentation.activity.OnboardingActivity"
             android:label="@string/title_activity_onboarding"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".presentation.activity.NavigationDrawerOptionsActivity"
-            android:label="@string/title_activity_navigation_drawer_options"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".presentation.activity.TermAndConditionsActivity" />
-        <activity
-            android:name=".presentation.activity.RegisterActivity"
-            android:parentActivityName=".presentation.activity.OnboardingActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".presentation.activity.OnboardingActivity" />
-        </activity>
-        <activity
-            android:name=".presentation.activity.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:parentActivityName=".presentation.activity.OnboardingActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".presentation.activity.OnboardingActivity" />
-        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

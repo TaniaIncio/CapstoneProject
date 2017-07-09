@@ -1,7 +1,11 @@
 package com.tincio.capstoneproject.presentation.activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.transition.Explode;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,8 +55,19 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     public void responseSoccerField(String response) {
-        if(response.isEmpty())
-            startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
+        if(response.isEmpty()){
+            Intent intent = new Intent(getApplicationContext(), OnboardingActivity.class);
+        //    ActivityOptions options = ActivityOptions
+           //         .makeSceneTransitionAnimation(this);
+            // start the new activity
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            }else{
+                startActivity(intent);
+            }
+        }
+
     }
 
     public class showAnimation extends AsyncTask<Void, Void, Void>{

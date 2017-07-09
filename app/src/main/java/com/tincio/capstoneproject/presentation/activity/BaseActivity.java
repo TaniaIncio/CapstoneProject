@@ -1,8 +1,11 @@
 package com.tincio.capstoneproject.presentation.activity;
 
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.view.Window;
 
 import com.tincio.capstoneproject.R;
 
@@ -15,6 +18,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        animationActivity();
         setContentView(getLayoutId());
         bindViews();
     }
@@ -28,5 +32,12 @@ public abstract class BaseActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
         }
     }*/
+    void animationActivity(){
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setExitTransition(new Explode());
+        }
+    }
     protected abstract int getLayoutId();
 }
