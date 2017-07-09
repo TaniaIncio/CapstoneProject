@@ -3,12 +3,8 @@ package com.tincio.capstoneproject.presentation.animation;
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
-import android.view.animation.TranslateAnimation;
-
-import com.tincio.capstoneproject.presentation.util.FeatureDevice;
 
 /**
  * Created by juan on 3/07/2017.

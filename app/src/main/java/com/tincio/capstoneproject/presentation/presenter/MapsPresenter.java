@@ -1,11 +1,7 @@
 package com.tincio.capstoneproject.presentation.presenter;
 
-import android.database.Cursor;
-
 import com.tincio.capstoneproject.data.dao.SoccerFieldDao;
 import com.tincio.capstoneproject.data.database.PichangaDB;
-import com.tincio.capstoneproject.data.service.SoccerFieldRepository;
-import com.tincio.capstoneproject.dominio.callback.MapsCallback;
 import com.tincio.capstoneproject.presentation.view.MapsView;
 
 public class MapsPresenter implements MvpPresenter<MapsView> {

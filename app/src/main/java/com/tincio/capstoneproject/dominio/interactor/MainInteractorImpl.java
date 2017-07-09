@@ -1,7 +1,5 @@
 package com.tincio.capstoneproject.dominio.interactor;
 
-import android.util.Log;
-
 import com.tincio.capstoneproject.data.database.PichangaDB;
 import com.tincio.capstoneproject.data.service.SoccerFieldRepository;
 import com.tincio.capstoneproject.dominio.callback.MainCallback;

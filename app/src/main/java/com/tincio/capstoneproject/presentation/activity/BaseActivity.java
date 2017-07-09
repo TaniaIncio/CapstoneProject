@@ -1,17 +1,10 @@
 package com.tincio.capstoneproject.presentation.activity;
 
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
+import android.support.v7.app.AppCompatActivity;
 import android.transition.Fade;
 import android.transition.Slide;
-import android.view.Window;
 
-import com.tincio.capstoneproject.R;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity {

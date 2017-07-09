@@ -1,8 +1,11 @@
 package com.tincio.capstoneproject.presentation.activity;
 
 import android.Manifest;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Location;
@@ -54,14 +57,11 @@ import com.tincio.capstoneproject.data.provider.SoccerFieldContract;
 import com.tincio.capstoneproject.presentation.presenter.MapsPresenter;
 import com.tincio.capstoneproject.presentation.view.MapsView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
+public class MapsActivity extends FragmentActivity implements  LoaderManager.LoaderCallbacks<Cursor>, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener, MapsView {
 
     private GoogleMap mMap;
@@ -69,7 +69,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int REQUEST_CHECK_SETTINGS = 200;
     private static final int START_LOCATION_UPDATE_REQUEST = 101;
     private GoogleApiClient mGoogleApiClient;
-    private Location mLastLocation;
     private static final int FINE_LOCATION_REQUEST_CODE = 100;
     private LocationRequest mLocationRequest;
     private Location mCurrentLocation;
@@ -78,6 +77,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int ZOOM_MAP = 16;
     private Marker markerUser;
     MapsPresenter presenter;
+    Location mLastLocation;
 
     //private Button btnExpBottomSheet;
     @BindView(R.id.bottomSheet) LinearLayout bottomSheet;
@@ -113,6 +113,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bsb.setState(BottomSheetBehavior.STATE_HIDDEN);
         initSearchPlaces();
         initAdmob();
+        getLoaderManager().initLoader(0, null, this);
     }
     /**START ADMOB***/
     void initAdmob(){
@@ -239,7 +240,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (markerUser!=null)  markerUser.remove();
 
         markerUser =mMap.addMarker(new MarkerOptions().position(userPosition).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_usermarker)));
-        if(SEARCH == false){
+        if(!SEARCH){
             mMap.moveCamera(CameraUpdateFactory.newLatLng(userPosition));
             SEARCH = true;
         }
@@ -382,9 +383,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void getSoccerFields(Cursor listFields) {
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM_MAP));
-        Cursor cursor = listFields;
+    public void getSoccerFields(Cursor cursor) {
+        getLoaderManager().restartLoader(0, null, this);
+        /* mMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM_MAP));
         SoccerField mField;
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -402,27 +403,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             cursor.moveToNext();
         }
 // make sure to close the cursor
-        cursor.close();
-    }
-
-    public List<LatLng> getAllPositions(Cursor listFields) {
-        List<LatLng> positionList = new ArrayList<LatLng>();
-
-        Cursor cursor = listFields;
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-
-            String positions = cursor.getString(1);
-            double latitude = cursor.getColumnIndex("lat");
-            double longitude = cursor.getColumnIndex("long");
-            LatLng newLatLng = new LatLng(latitude, longitude);
-            positionList.add(newLatLng);
-            cursor.moveToNext();
-        }
-// make sure to close the cursor
-        cursor.close();
-        return positionList;
+        cursor.close();*/
     }
 
     private void setData(SoccerField field){
@@ -480,4 +461,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        String[] projection = {
+                SoccerFieldContract.SoccerEntry._ID,
+                SoccerFieldContract.SoccerEntry.COLUMN_DESCRIPTION,
+                SoccerFieldContract.SoccerEntry.COLUMN_LONGITUDE,
+                SoccerFieldContract.SoccerEntry.COLUMN_LATITUDE,
+                SoccerFieldContract.SoccerEntry.COLUMN_ADDRESS,
+                SoccerFieldContract.SoccerEntry.COLUMN_NAME,
+                SoccerFieldContract.SoccerEntry.COLUMN_SERVICE,
+                SoccerFieldContract.SoccerEntry.COLUMN_IMAGE,
+                SoccerFieldContract.SoccerEntry.COLUMN_PRICE
+        };
+        return new CursorLoader(this, SoccerFieldContract.SoccerEntry.CONTENT_URI,
+                projection, null, null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM_MAP));
+        SoccerField mField;
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            mField = new SoccerField();
+            //  String positions = cursor.getString(1);
+            mField.setLatitude(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_LATITUDE)));
+            mField.setLongitude(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_LONGITUDE)));
+            mField.setId(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry._ID)));
+            mField.setImage(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_IMAGE)));
+            mField.setName(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_NAME)));
+            mField.setDescription(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_DESCRIPTION)));
+            mField.setPrice(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_PRICE)));
+            mField.setService(cursor.getString(cursor.getColumnIndex(SoccerFieldContract.SoccerEntry.COLUMN_SERVICE)));
+            addNewMarker(mField);
+            cursor.moveToNext();
+        }
+// make sure to close the cursor
+        cursor.close();
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
 }

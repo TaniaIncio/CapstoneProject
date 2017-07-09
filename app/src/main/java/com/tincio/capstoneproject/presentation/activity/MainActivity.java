@@ -1,17 +1,13 @@
 package com.tincio.capstoneproject.presentation.activity;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.transition.Explode;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tincio.capstoneproject.R;
 import com.tincio.capstoneproject.data.database.PichangaDB;
-import com.tincio.capstoneproject.data.service.SoccerFieldRepository;
 import com.tincio.capstoneproject.presentation.animation.ViewAnimation;
 import com.tincio.capstoneproject.presentation.presenter.MainPresenter;
 import com.tincio.capstoneproject.presentation.util.FeatureDevice;

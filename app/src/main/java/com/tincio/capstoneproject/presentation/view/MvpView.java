@@ -1,8 +1,5 @@
 package com.tincio.capstoneproject.presentation.view;
 
-import android.content.Context;
-
-
 public interface MvpView {
 
 
