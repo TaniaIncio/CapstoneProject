@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Pichanga</string>
+    <string name="name_image_main">Pichanga imagen</string>
+    <string name="title_activity_onboarding">OnboardingActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <!--BUttons-->
+    <string name="button_create">Create an account</string>
+    <string name="button_enter">Enter</string>
+
+    <!--labels-->
+    <string name="txt_have_account">Already have an account? Log in</string>
+    <string name="lbl_step_one">Know soccer fields close to you</string>
+    <string name="lbl_step_two">Find soccer fields by dates, kind and place</string>
+    <string name="lbl_step_three">Book soccer fields and have fun</string>
+    <string name="lbl_terms">Terms and Conditions</string>
+    <string name="lbl_terms_content">This app does not take responsibility for using of users</string>
+
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_navigation_drawer_options">NavigationDrawerOptionsActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_name">Name</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign</string>
+    <string name="action_register">Register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_maps">Map</string>
+    <string name="appwidget_text">Soccer Fields</string>
+</resources>

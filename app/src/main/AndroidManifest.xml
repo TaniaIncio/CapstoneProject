@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tincio.capstoneproject">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_ball"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".presentation.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".presentation.activity.BaseActivity" />
+        <activity
+            android:name=".presentation.activity.OnboardingActivity"
+            android:label="@string/title_activity_onboarding"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".presentation.activity.NavigationDrawerOptionsActivity"
+            android:label="@string/title_activity_navigation_drawer_options"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".presentation.activity.TermAndConditionsActivity" />
+        <activity
+            android:name=".presentation.activity.RegisterActivity"
+            android:parentActivityName=".presentation.activity.OnboardingActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.activity.OnboardingActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.activity.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".presentation.activity.OnboardingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.activity.OnboardingActivity" />
+        </activity>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".presentation.activity.MapsActivity"
+            android:label="@string/title_activity_maps" />
+
+        <!--WIDGET-->
+        <receiver android:name=".presentation.widget.RecipeAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/recipe_app_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".presentation.widget.PichangaWidgetService"
+            android:exported="false" />
+
+        <service
+            android:name=".presentation.widget.GridWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <provider
+            android:name=".data.provider.PichangaContentProvider"
+            android:authorities="com.tincio.capstoneproject"
+            android:exported="true" />
+    </application>
+
+</manifest>

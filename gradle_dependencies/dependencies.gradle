@@ -1,0 +1,36 @@
+ext {
+
+    /**Version*/
+    supportVersion = '25.3.1'
+    espressoVersion = '2.2.2'
+    constraintlayoutVersion = '1.0.2'
+    butterknifeVersion = '8.4.0'
+    retrofitVersion = '2.3.0'
+    picassoVersion = '2.5.2'
+
+    /**Names package**/
+    supportPackage = 'com.android.support'
+    jakeWhartonPackage = 'com.jakewharton'
+    constraintlayoutPackage = 'com.android.support.constraint'
+    retrofitPackage = 'com.squareup.retrofit2'
+    picassoPackage = 'com.squareup.picasso'
+
+    /**Dependencies**/
+    supportDependencies = [
+            design           : buildDependency(supportPackage, 'design', supportVersion),
+            appCompat        : buildDependency(supportPackage, 'appcompat-v7', supportVersion)]
+
+    widget = [
+            constraint_layout : buildDependency(constraintlayoutPackage, 'constraint-layout', constraintlayoutVersion)
+    ]
+
+    butterknife = buildDependency(jakeWhartonPackage, 'butterknife', butterknifeVersion)
+    butterknifeProcessor = buildDependency(jakeWhartonPackage, 'butterknife-compiler', butterknifeVersion)
+    retrofit = buildDependency(retrofitPackage, 'retrofit', retrofitVersion)
+    retrofit_gson = buildDependency(retrofitPackage, 'converter-gson', retrofitVersion)
+    picasso = buildDependency(picassoPackage, 'picasso', picassoVersion)
+}
+
+static String buildDependency(String pack, String dependency, String version) {
+    return "${pack}:${dependency}:${version}"
+}
